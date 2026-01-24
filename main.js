@@ -1,10 +1,9 @@
-let num: number = 2; // Type annotations used in typescript. Not acceptables in JS
-let bool = true;
-!bool;
+var num = 2; // Type annotations used in typescript. Not acceptables in JS
+var bool = true;
 // 1. Types of data type
 // const bigNum = BigInt(2); // would this work?
 // let bigNum = 2n;
-let nullVar = null;
+var nullVar = null;
 // 2. Observe the type of undefinedVar when declared and assigned
 // let undefinedVar = 2;
 // undefinedVar = 2;
@@ -14,33 +13,26 @@ let nullVar = null;
 // undefinedVar = 2;
 // undefinedVar = "";
 // 3. Typescript warns when variables are not used
-let ans = num + "3";
+var ans = num + "3";
 //num = num + "2"; what happens here
-
-const para = document.getElementById("para");
+var para = document.getElementById("para");
 if (para !== null) {
   para.textContent = ans;
 }
-
 // function functionName1(a, b) {
 //   // what warning/indication will you get in?
 //   console.log(a, b);
 // }
-
 // 4. How to define functions. Name ways how parameters can be defined
-function functionName2(a: number, b: string) {
+function functionName2(a, b) {
   console.log(a, b);
 }
-
 functionName2(2, "str");
-
-let result = function (a: number, b: number) {
+var result = function (a, b) {
   return a + b;
 };
-
 console.log(result(2, 3));
-
-let arrowExp = (a: number, b: number) => a - b;
+var arrowExp = function (a, b) {
+  return a - b;
+};
 console.log(arrowExp(2, 3));
-
-// Ask the basic difference between TS and JS after the experiments
