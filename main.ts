@@ -5,8 +5,9 @@ let bool: boolean = true; // boolean type
 let str: string = "Hello"; // string type
 let nullVar: any = null; // any type
 let undefinedVar: any = undefined; // any type
-//let bigIntVar: bigint = BigInt(2); // bigint type
+// let bigIntVar: bigint = 2n; // bigint type
 let sym: symbol = Symbol(); // symbol type
+const name1: string = "Ron";
 
 console.log("--------Values--------");
 console.log("num", num);
@@ -24,17 +25,11 @@ console.log(typeof nullVar);
 console.log(typeof undefinedVar);
 // console.log(typeof bigIntVar);
 console.log(typeof sym);
+console.log("----------------------");
+console.log(typeof name1);
 
-// const name1 = "Ron";
-// console.log(typeof name1);
-// 1. Types of data type
-// const bigNum = BigInt(2); // would this work?
-// let bigNum = 2n;
-
-// let ans = num + "3";
-//num = num + "2"; what happens here
-
-// function functionName1(a, b) {
-//   // what warning/indication will you get in?
-//   console.log(a, b);
-// }
+let ans = num + "3";
+console.log(ans);
+ans = "3" + num;
+console.log(ans);
+// num = num + "2"; // what happens here? doesnt work. num is inferred as number so concantenation which produces string will not be assigned to a variable of number type
