@@ -33,3 +33,11 @@ console.log(ans);
 ans = "3" + num;
 console.log(ans);
 // num = num + "2"; // what happens here
+const person = {
+  name: "Alice",
+  age: 30,
+};
+
+person.legs = 2;
+person["hands of"] = 4;
+delete person.name;
