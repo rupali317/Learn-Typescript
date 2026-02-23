@@ -1,11 +1,11 @@
 interface Person {
   name: string;
-  age: number;
+  age?: number;
 }
 
 let person: Person = {
   name: "Alice",
-  age: 30,
+  age: 30, // can be omitted
 };
 
 console.log("--------Person-----------");
@@ -45,4 +45,25 @@ console.log(person5); // shows height because ypeScript types do NOT exist at ru
 // So I won’t let you use height.”
 
 let p2 = { name: "Alice", age: 30, height: 165 };
-// p2.weight = 3;
+
+function fn(point: { name?: string; age: number; height: number }) {
+  console.log(point.name?.toLowerCase());
+  console.log(point.age);
+  point.height?.toFixed();
+}
+
+fn(p2);
+fn({ age: 40, height: 165 });
+
+let a: {
+  xyz: "a";
+  wes: 1;
+};
+
+/*
+Type annotations describe TYPES, not VALUES:
+
+: { age: number; height: number } → Describes a type (what shape an object should have)
+
+{ age: 40, height: 165 } → Creates an actual object (a value)
+ */

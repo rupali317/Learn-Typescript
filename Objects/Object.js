@@ -1,6 +1,6 @@
 let person = {
     name: "Alice",
-    age: 30,
+    age: 30, // can be omitted
 };
 console.log("--------Person-----------");
 console.log(person["name"]);
@@ -35,4 +35,11 @@ console.log(person5); // shows height because ypeScript types do NOT exist at ru
 //Person does NOT have height.
 // So I won’t let you use height.”
 let p2 = { name: "Alice", age: 30, height: 165 };
-// p2.weight = 3;
+function fn(point) {
+    var _a, _b;
+    console.log((_a = point.name) === null || _a === void 0 ? void 0 : _a.toLowerCase());
+    console.log(point.age);
+    (_b = point.height) === null || _b === void 0 ? void 0 : _b.toFixed();
+}
+fn(p2);
+fn({ age: 40, height: 165 });
