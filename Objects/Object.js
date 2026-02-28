@@ -43,3 +43,37 @@ function fn(point) {
 }
 fn(p2);
 fn({ age: 40, height: 165 });
+let a;
+/*
+Type annotations describe TYPES, not VALUES:
+
+: { age: number; height: number } → Describes a type (what shape an object should have)
+
+{ age: 40, height: 165 } → Creates an actual object (a value)
+ */
+// You are writing a function to update a user's profile.
+// The function accepts an object that can have firstName,
+// lastName, and age. How would you type this object to make
+// all fields optional, and what are the implications when
+// trying to use those properties inside the function?
+function updateProfile(profile) {
+    if (profile.firstName !== undefined) {
+        profile.firstName.toUpperCase();
+    }
+    if (profile.lastName !== undefined) {
+        profile.lastName.toUpperCase();
+    }
+    if (profile.age !== undefined) {
+        profile.age.toFixed();
+    }
+}
+function getSpeed(animal) {
+    if ("flySpeed" in animal) {
+        return animal.flySpeed;
+    }
+    else {
+        return animal.swimSpeed;
+    }
+}
+console.log(getSpeed({ flySpeed: 200 }));
+console.log(getSpeed({ swimSpeed: 300 }));

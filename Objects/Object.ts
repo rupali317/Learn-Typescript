@@ -67,3 +67,71 @@ Type annotations describe TYPES, not VALUES:
 
 { age: 40, height: 165 } → Creates an actual object (a value)
  */
+
+// You are writing a function to update a user's profile.
+// The function accepts an object that can have firstName,
+// lastName, and age. How would you type this object to make
+// all fields optional, and what are the implications when
+// trying to use those properties inside the function?
+function updateProfile(profile: {
+  firstName?: string;
+  lastName?: string;
+  age?: number;
+}) {
+  if (profile.firstName !== undefined) {
+    profile.firstName.toUpperCase();
+  }
+  if (profile.lastName !== undefined) {
+    profile.lastName.toUpperCase();
+  }
+  if (profile.age !== undefined) {
+    profile.age.toFixed();
+  }
+}
+
+// Imagine you have a Bird object type with a flySpeed property
+// and a Fish object type with a swimSpeed property. Write a function
+// that accepts either a Bird or a Fish and returns their speed.
+// How would you safely access the correct speed property?
+
+type bird = {
+  flySpeed: number;
+};
+
+type fish = {
+  swimSpeed: number;
+};
+
+function getSpeed(animal: bird | fish): number {
+  if ("flySpeed" in animal) {
+    return animal.flySpeed;
+  } else {
+    return animal.swimSpeed;
+  }
+}
+
+console.log(getSpeed({ flySpeed: 200 }));
+console.log(getSpeed({ swimSpeed: 300 }));
+
+// Your team has a legacy configuration object that sometimes
+// includes a property data and sometimes info, but never both.
+// How would you design a type for this object to accurately represent this constraint?
+
+type withData = {
+  data: string;
+  info?: never;
+};
+
+type withInfo = {
+  data?: never;
+  info: string;
+};
+
+type Config = withData | withInfo;
+let withdata_obj: withData = { data: "dsdsds" }; // You cant put anything for a property with never so it has to be optional
+let withinfo_obj: withInfo = { info: "dsdsds" }; // You cant put anything for a property with never so it has to be optional
+
+const config_obj_1: Config = { data: "data_1232343" };
+const config_obj_2: Config = { info: "info_1232343" };
+// const config_obj_3: Config = { info: "info_1232343", data: "323232" }; // error
+// const config_obj_4: Config = {}; // error
