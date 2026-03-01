@@ -58,7 +58,9 @@ type ErrorResponse = {
   error: string;
 };
 
-function getAPIResponse(response: SuccessResponse | ErrorResponse) {
+type APIResponse = ErrorResponse | SuccessResponse;
+
+function getAPIResponse(response: APIResponse) {
   if ("data" in response) return response.data;
   return response.error;
 }

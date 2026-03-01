@@ -33,7 +33,7 @@ function processInput(param) {
 console.log(processInput(2));
 console.log(processInput([2, 3, 4]));
 function getAPIResponse(response) {
-    if (response.success)
+    if ("data" in response)
         return response.data;
     return response.error;
 }
