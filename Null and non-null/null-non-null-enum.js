@@ -57,14 +57,25 @@ function liveDangerously(x) {
 }
 liveDangerously(2);
 //liveDangerously(null);
+console.log("------------ enum ---------------");
 var Color;
 (function (Color) {
-    Color[Color["Red"] = 0] = "Red";
-    Color[Color["Green"] = 1] = "Green";
-    Color[Color["Blue"] = 2] = "Blue";
+    Color["Red"] = "r";
+    Color["Green"] = "g";
+    Color["Blue"] = "b";
 })(Color || (Color = {}));
-console.log(Color.Blue);
+console.log(Color.Blue); //  string enums don't have reverse mappings
 console.log(Color.Red);
+//console.log(Color.);
+var Color2;
+(function (Color2) {
+    Color2[Color2["Red"] = 0] = "Red";
+    Color2[Color2["Green"] = 1] = "Green";
+    Color2[Color2["Blue"] = 2] = "Blue";
+})(Color2 || (Color2 = {}));
+console.log(Color2.Blue); //  string enums don't have reverse mappings
+console.log(Color2.Red);
+console.log(Color2[0]);
 //Your API returns status codes as numbers (200, 404, 500).
 // You want to use an enum to make your code more readable.
 // Create an enum HttpStatus for these values.
@@ -76,6 +87,10 @@ var HttpStatus;
     HttpStatus[HttpStatus["notFound"] = 404] = "notFound";
     HttpStatus[HttpStatus["Server"] = 500] = "Server";
 })(HttpStatus || (HttpStatus = {}));
+console.log(HttpStatus); // is an object
+console.log(HttpStatus.Success); // 200
+console.log(HttpStatus[200]); // Success
+console.log(HttpStatus[0]); // undefined
 function getMessage(status) {
     if (status === HttpStatus.Server)
         return "Server error";
@@ -88,6 +103,25 @@ function getMessage(status) {
 console.log(getMessage(200));
 console.log(getMessage(404));
 console.log(getMessage(500));
+/*
+
+// When you write:
+function getMessage(status: HttpStatus) {}
+
+// TypeScript interprets this as:
+function getMessage(status: 200 | 404 | 500) {}
+
+// NOT as:
+function getMessage(status: {
+  Success: 200,
+  NotFound: 404,
+  Server: 500,
+  200: "Success",
+  404: "NotFound",
+  500: "Server"
+}) {}
+
+*/
 // console.log(getMessage(418)); // This will be an error
 // You're building a library that will be used by other developers.
 // You need to define a set of constants like sort directions ("asc", "desc").
@@ -115,13 +149,6 @@ function getHttpMethod1(method) {
 }
 console.log(getHttpMethod1(HttpMethod.Get));
 function getHttpMethod2(method) {
-    // if (
-    //   method === HttpMethod.Get ||
-    //   method === HttpMethod.Post ||
-    //   method === HttpMethod.Put ||
-    //   method === HttpMethod.Delete
-    // )
-    //   return method as HttpMethod;
     if (Object.values(HttpMethod).includes(method)) {
         return method; // Need to assert here
     }
@@ -130,3 +157,11 @@ function getHttpMethod2(method) {
 console.log(getHttpMethod2("GET"));
 console.log(getHttpMethod2("DELETE"));
 console.log(getHttpMethod2("get"));
+var PizzaSize;
+(function (PizzaSize) {
+    PizzaSize["Small"] = "small";
+    PizzaSize["Medium"] = "medium";
+    PizzaSize["Large"] = "large";
+})(PizzaSize || (PizzaSize = {}));
+// This function ONLY accepts people with VIP wristbands
+function orderPizza(size) { }

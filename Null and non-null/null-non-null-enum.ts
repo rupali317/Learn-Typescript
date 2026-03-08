@@ -78,15 +78,26 @@ function liveDangerously(x?: number | null) {
 
 liveDangerously(2);
 //liveDangerously(null);
-
+console.log("------------ enum ---------------");
 enum Color {
+  Red = "r",
+  Green = "g",
+  Blue = "b",
+}
+
+console.log(Color.Blue); //  string enums don't have reverse mappings
+console.log(Color.Red);
+//console.log(Color.);
+
+enum Color2 {
   Red,
   Green,
   Blue,
 }
 
-console.log(Color.Blue);
-console.log(Color.Red);
+console.log(Color2.Blue); //  string enums don't have reverse mappings
+console.log(Color2.Red);
+console.log(Color2[0]);
 
 //Your API returns status codes as numbers (200, 404, 500).
 // You want to use an enum to make your code more readable.
@@ -99,6 +110,12 @@ enum HttpStatus {
   Server = 500,
 }
 
+console.log(HttpStatus); // is an object
+
+console.log(HttpStatus.Success); // 200
+console.log(HttpStatus[200]); // Success
+console.log(HttpStatus[0]); // undefined
+
 function getMessage(status: HttpStatus) {
   if (status === HttpStatus.Server) return "Server error";
   if (status === HttpStatus.notFound) return "Not found";
@@ -109,6 +126,25 @@ function getMessage(status: HttpStatus) {
 console.log(getMessage(200));
 console.log(getMessage(404));
 console.log(getMessage(500));
+/*
+
+// When you write:
+function getMessage(status: HttpStatus) {}
+
+// TypeScript interprets this as:
+function getMessage(status: 200 | 404 | 500) {}
+
+// NOT as:
+function getMessage(status: {
+  Success: 200,
+  NotFound: 404,
+  Server: 500,
+  200: "Success",
+  404: "NotFound",
+  500: "Server"
+}) {}
+
+*/
 // console.log(getMessage(418)); // This will be an error
 
 // You're building a library that will be used by other developers.
@@ -151,3 +187,12 @@ function getHttpMethod2(method: string) {
 console.log(getHttpMethod2("GET"));
 console.log(getHttpMethod2("DELETE"));
 console.log(getHttpMethod2("get"));
+
+enum PizzaSize {
+  Small = "small",
+  Medium = "medium",
+  Large = "large",
+}
+
+// This function ONLY accepts people with VIP wristbands
+function orderPizza(size: PizzaSize) {}
