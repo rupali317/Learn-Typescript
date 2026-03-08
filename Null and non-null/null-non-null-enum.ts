@@ -115,3 +115,39 @@ console.log(getMessage(500));
 // You need to define a set of constants like sort directions ("asc", "desc").
 // Would you use an enum or a union type for this?
 // Justify your answer in terms of bundle size, developer experience, and interoperability with plain JavaScript.
+
+// union, no bundle size,
+
+// You have a string enum for HTTP methods:
+// enum HttpMethod {
+//   Get = "GET",
+//   Post = "POST",
+//   Put = "PUT",
+//   Delete = "DELETE"
+// }
+// Write a function that accepts only these enum values.
+// Then, write another function that takes an arbitrary string and safely checks if it's a valid HttpMethod before using it.
+
+enum HttpMethod {
+  Get = "GET",
+  Post = "POST",
+  Put = "PUT",
+  Delete = "DELETE",
+}
+
+function getHttpMethod1(method: HttpMethod) {
+  return `Processing ${method}`;
+}
+
+console.log(getHttpMethod1(HttpMethod.Get));
+
+function getHttpMethod2(method: string) {
+  if (Object.values(HttpMethod).includes(method as HttpMethod)) {
+    return method as HttpMethod; // Need to assert here
+  }
+  return "incorrect HttpMethod";
+}
+
+console.log(getHttpMethod2("GET"));
+console.log(getHttpMethod2("DELETE"));
+console.log(getHttpMethod2("get"));

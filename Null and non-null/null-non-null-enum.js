@@ -65,3 +65,68 @@ var Color;
 })(Color || (Color = {}));
 console.log(Color.Blue);
 console.log(Color.Red);
+//Your API returns status codes as numbers (200, 404, 500).
+// You want to use an enum to make your code more readable.
+// Create an enum HttpStatus for these values.
+// Then, write a function that takes an HttpStatus and returns a user-friendly message.
+// What happens if the API returns a status code (like 418) that isn't in your enum?
+var HttpStatus;
+(function (HttpStatus) {
+    HttpStatus[HttpStatus["Success"] = 200] = "Success";
+    HttpStatus[HttpStatus["notFound"] = 404] = "notFound";
+    HttpStatus[HttpStatus["Server"] = 500] = "Server";
+})(HttpStatus || (HttpStatus = {}));
+function getMessage(status) {
+    if (status === HttpStatus.Server)
+        return "Server error";
+    if (status === HttpStatus.notFound)
+        return "Not found";
+    if (status === HttpStatus.Success)
+        return "Success";
+    return "Invalid code";
+}
+console.log(getMessage(200));
+console.log(getMessage(404));
+console.log(getMessage(500));
+// console.log(getMessage(418)); // This will be an error
+// You're building a library that will be used by other developers.
+// You need to define a set of constants like sort directions ("asc", "desc").
+// Would you use an enum or a union type for this?
+// Justify your answer in terms of bundle size, developer experience, and interoperability with plain JavaScript.
+// union, no bundle size,
+// You have a string enum for HTTP methods:
+// enum HttpMethod {
+//   Get = "GET",
+//   Post = "POST",
+//   Put = "PUT",
+//   Delete = "DELETE"
+// }
+// Write a function that accepts only these enum values.
+// Then, write another function that takes an arbitrary string and safely checks if it's a valid HttpMethod before using it.
+var HttpMethod;
+(function (HttpMethod) {
+    HttpMethod["Get"] = "GET";
+    HttpMethod["Post"] = "POST";
+    HttpMethod["Put"] = "PUT";
+    HttpMethod["Delete"] = "DELETE";
+})(HttpMethod || (HttpMethod = {}));
+function getHttpMethod1(method) {
+    return `Processing ${method}`;
+}
+console.log(getHttpMethod1(HttpMethod.Get));
+function getHttpMethod2(method) {
+    // if (
+    //   method === HttpMethod.Get ||
+    //   method === HttpMethod.Post ||
+    //   method === HttpMethod.Put ||
+    //   method === HttpMethod.Delete
+    // )
+    //   return method as HttpMethod;
+    if (Object.values(HttpMethod).includes(method)) {
+        return method; // Need to assert here
+    }
+    return "incorrect HttpMethod";
+}
+console.log(getHttpMethod2("GET"));
+console.log(getHttpMethod2("DELETE"));
+console.log(getHttpMethod2("get"));
